@@ -1,24 +1,31 @@
-//
-//  ContentView.swift
-//  MyFirstApp
-//
-//  Created by Sopheap on 4/5/24.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    let items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"]
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            List(items, id: \.self) { item in
+                NavigationLink(destination: DetailView(item: item)) {
+                    Text(item)
+                }
+            }
+            .navigationTitle("Items")
         }
-        .padding()
     }
 }
 
-#Preview {
-    ContentView()
+struct DetailView: View {
+    let item: String
+
+    var body: some View {
+        Text(item)
+            .navigationTitle(item)
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
